@@ -1,0 +1,56 @@
+{% extends 'partials/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %} Comment Page {% endblock %}
+{% block content %} 
+<div class="container">
+    <div class="row mt-4 pt-4 ">
+        <div class="col-md-8 offset-md-2">
+            <div class="card shadow my-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img class="img-thumbnail" src="{{post.author.profilemodel.image.url}}" alt="image">
+                        </div>
+                        <div class="col-md-8">
+                            <span>
+                                {{post.date}}                                
+                            </span>
+                            <hr>
+                            <h4><a class="text-info" href="">{{post.title}}</a></h4>
+                            <p>
+                                {{post.content}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="mt-1">
+                        <p>
+                            <a  data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                             Comments {{post.comment_count}}
+                            </a>
+                            <form method="POST">
+                                {%csrf_token%}
+                                {{form|crispy}}
+                                <input type="submit" value="save">
+                            </form>
+                          </p>
+                          <div style="height: 50px; overflow-y: scroll;" class="collapse" id="collapseExample">
+                            {% for comment in post.comments %}
+                            <div class="card card-body mb-1">
+                                <h4 class="text-info">{{comment.user.username}} : </h4> 
+                                {{comment.content}}    
+                            </div>
+                            {% endfor%}
+                          </div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

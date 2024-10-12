@@ -1,0 +1,52 @@
+{% extends 'partials/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %} Index Page {% endblock %}
+{% block content %} 
+<div class="container">
+    <div class="row mt-4 pt-4">
+        <div class="col-md-4">
+            <div class="card shadow my-3">
+                <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{form|crispy}}
+                        <input type="submit" value="save">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            {% for post in posts %}
+            <div class="card shadow my-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img class="img-thumbnail" src="{{post.author.profilemodel.image.url}}" alt="image">
+                            
+                        </div>
+                        <div class="col-md-8">
+                            <span>
+                                {{post.date}}
+                                {% if request.user == post.author %}
+                                <a class="btn btn-sm float-right btn-info" href="{% url 'post_detail' post.id %}">Detail</a>
+                                {% endif %}
+                            </span>
+                            <hr>
+                            <h4><a class="text-info" href="">{{post.title}}</a></h4>
+                            <p>
+                                {{post.content}}
+                            </p>
+                        </div>
+                    </div>
+                    <a class="float-right mr-2 text-info" href="{% url 'blog-comment' post.id %}">Comments {{post.comment_count}}</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
