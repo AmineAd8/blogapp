@@ -31,6 +31,7 @@ SECRET_KEY = 'django-insecure-x)3h*p$$%-vy+2r+#j%&3uwa=)i)y)bz6-u)i_(2&pe(krak%q
 DEBUG = True
 
 ALLOWED_HOSTS = []
+CSRF_TRUSTD_ORIGINS = []
 
 
 # Application definition
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     "crispy_bootstrap4",
+    'whitenoise.runserver_nostatic',
 ]
 
 MIDDLEWARE = [
@@ -56,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'blogproject.urls'
@@ -141,6 +144,9 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 STATIC_ROOT = BASE_DIR / 'asset'
 
+# whitenoise static stuff
+STATICFILES_STORAG = 'whitenoise.storage.CompressedManifestStaticFilesStorge'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -155,7 +161,7 @@ LOGIN_URL = 'users-login'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'blogapp767@gmail.com'
-EMAIL_HOST_PASSWORD = 'acig rujg jtwe wmst'
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 

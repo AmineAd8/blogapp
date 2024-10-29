@@ -1,0 +1,2 @@
+web: gunicorn blog.wsgi --log-file
+web: python manage.py && gunicorn migrate && gunicorn blog.wsg
