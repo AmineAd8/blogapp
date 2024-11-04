@@ -8,9 +8,9 @@
             <div class="card shadow my-3">
                 <div class="card-body">
                     <form method="POST">
-                        {% csrf_token %}
+                        {%csrf_token%}
                         {{form|crispy}}
-                        <a class="btn btn-secondary btn-sm" href="{% url 'post_detail' post.id %}">Cancel</a>
+                        <a class="btn btn-secondary btn-sm" href="{%url 'post_detail' post.id%}">Cancel</a>
                         <input class="btn btn-info btn-sm" type="submit" value="save">
                     </form>
                 </div>

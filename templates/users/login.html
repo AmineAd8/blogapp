@@ -10,7 +10,7 @@
                     <h3>Login</h3>
                     <hr>
                     <form method="POST">
-                        {% csrf_token %}
+                        {%csrf_token%}
                         {{form|crispy}}
                         <hr>
                         <input class="btn btn-info " style="width: 100%;" type="submit" value="Login">
